@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateUserById = exports.deleteUserById = exports.createUser = exports.getUserById = exports.getUserBySessionToken = exports.getUserByEmail = exports.getUser = void 0;
+const User_1 = __importDefault(require("../models/User"));
+const getUser = () => User_1.default.find();
+exports.getUser = getUser;
+const getUserByEmail = (email) => User_1.default.findOne({ email });
+exports.getUserByEmail = getUserByEmail;
+const getUserBySessionToken = (sessionToken) => User_1.default.findOne({ 'authentication.sessionToken': sessionToken });
+exports.getUserBySessionToken = getUserBySessionToken;
+const getUserById = (id) => User_1.default.findById(id);
+exports.getUserById = getUserById;
+const createUser = (values) => new User_1.default(values).save().then((user) => user.toObject());
+exports.createUser = createUser;
+const deleteUserById = (id) => User_1.default.findOneAndDelete({ _id: id });
+exports.deleteUserById = deleteUserById;
+const updateUserById = (id, values) => User_1.default.findByIdAndUpdate(id, values, { new: true });
+exports.updateUserById = updateUserById;
