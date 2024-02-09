@@ -24,7 +24,7 @@ export const isOwner = async (req: express.Request, res: express.Response, next:
     try {
         const id = req.params.userId;
         const currentUserId = get(req, 'identity._id') as string | undefined;
-        if (!currentUserId) return res.status(400);
+        if (!currentUserId) return res.status(400).json({ msg: 'invalid user Id' });
         if (currentUserId.toString() !== id) return res.status(403);
 
         next();

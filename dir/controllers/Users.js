@@ -19,6 +19,7 @@ const getUserInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         const id = req.params.userId;
         const user = yield (0, Users_1.getUserById)(id);
+        console.log(user);
         if (!user)
             return res.status(404).json({ error: 'User not found' });
         return res.status(200).json({ user });
@@ -64,8 +65,9 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const id = req.params.userId;
         const userData = req.body;
+        console.log(userData);
         if (Object.keys(userData).length === 0) {
-            return res.status(400).json({ erorr: 'At least one parameter is required for update.' });
+            return res.status(400).json({ msg: 'At least one parameter is required for update.' });
         }
         const user = yield (0, Users_1.getUserById)(id);
         if (!user)
@@ -108,17 +110,4 @@ const logoutUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.logoutUser = logoutUser;
-// export const addBookmarks = async (req: Request, res: Response) => {
-//     try {
-//         const id = req.params.userId;
-//         const user = getUserById(id);
-//         if(!user){
-//             return res.status(400).json({error: "invalid Id"});
-//         }
-//         const data = req.body;
-//     } catch (error) {
-//         Logging.error(error);
-//         return res.status(500).json({ error: 'Internal server error' });
-//     }
-// }
 exports.default = { getUserInfo: exports.getUserInfo, getAllUsers: exports.getAllUsers, deleteUser: exports.deleteUser, updateUser: exports.updateUser, logoutUser: exports.logoutUser };

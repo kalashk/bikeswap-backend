@@ -37,12 +37,13 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!user) {
             return res.status(400).json({ message: 'User did not exist' });
         }
+        const userInfo = yield (0, Users_1.getUserById)(user._id);
         const expectedHash = (0, authentication_1.authentication)(user.authentication.salt, password);
         if (user.authentication.password === expectedHash) {
             user.authentication.sessionToken = (0, authentication_1.authentication)(user.authentication.salt, user._id.toString());
             yield user.save();
             res.cookie('BIKESWAP-AUTH', user.authentication.sessionToken, { domain: 'localhost', path: '/' });
-            return res.status(200).json({ message: 'You are Logged in' });
+            return res.status(200).json({ userInfo });
         }
         else {
             return res.status(403).json({ message: 'wrong password' });
