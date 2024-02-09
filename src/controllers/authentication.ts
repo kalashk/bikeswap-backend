@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createUser, getUserByEmail } from '../actions/Users';
+import { createUser, getUserByEmail, getUserById } from '../actions/Users';
 import { authentication, random } from '../library/authentication';
 import Logging from '../library/Logging';
 
@@ -13,13 +13,14 @@ export const login = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(400).json({ message: 'User did not exist' });
         }
+        const userInfo = await getUserById(user._id);
         const expectedHash = authentication(user.authentication.salt, password);
 
         if (user.authentication.password === expectedHash) {
             user.authentication.sessionToken = authentication(user.authentication.salt, user._id.toString());
             await user.save();
             res.cookie('BIKESWAP-AUTH', user.authentication.sessionToken, { domain: 'localhost', path: '/' });
-            return res.status(200).json({ message: 'You are Logged in' });
+            return res.status(200).json({ userInfo });
         } else {
             return res.status(403).json({ message: 'wrong password' });
         }

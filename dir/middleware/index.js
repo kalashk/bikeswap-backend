@@ -40,7 +40,7 @@ const isOwner = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         const id = req.params.userId;
         const currentUserId = (0, lodash_1.get)(req, 'identity._id');
         if (!currentUserId)
-            return res.status(400);
+            return res.status(400).json({ msg: 'invalid user Id' });
         if (currentUserId.toString() !== id)
             return res.status(403);
         next();

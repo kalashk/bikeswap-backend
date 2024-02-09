@@ -42,7 +42,7 @@ const StartServer = () => {
     router.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
     /** Error handling */
     router.use((req, res, next) => {
-        const error = new Error('not-found');
+        const error = new Error('route not-found');
         Logging_1.default.error(error);
         return res.status(404).json({ message: error.message });
     });

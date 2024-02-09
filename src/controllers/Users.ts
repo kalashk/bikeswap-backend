@@ -6,6 +6,7 @@ export const getUserInfo = async (req: Request, res: Response) => {
     try {
         const id = req.params.userId;
         const user = await getUserById(id);
+        console.log(user);
 
         if (!user) return res.status(404).json({ error: 'User not found' });
 
@@ -50,8 +51,10 @@ export const updateUser = async (req: Request, res: Response) => {
         const id = req.params.userId;
         const userData = req.body;
 
+        console.log(userData);
+
         if (Object.keys(userData).length === 0) {
-            return res.status(400).json({ erorr: 'At least one parameter is required for update.' });
+            return res.status(401).json({ msg: 'At least one parameter is required for update.' });
         }
         const user = await getUserById(id);
         if (!user) return res.status(404).json({ error: 'User not found ' });
