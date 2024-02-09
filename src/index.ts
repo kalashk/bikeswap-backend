@@ -34,7 +34,12 @@ const StartServer = () => {
     });
 
     router.use(cookieParser());
-    router.use(cors());
+    router.use(
+        cors({
+            origin: 'http://localhost:5173',
+            credentials: true
+        })
+    );
     router.use(compression());
     router.use(bodyParser.json());
 

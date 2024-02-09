@@ -65,9 +65,8 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const id = req.params.userId;
         const userData = req.body;
-        console.log(userData);
         if (Object.keys(userData).length === 0) {
-            return res.status(400).json({ msg: 'At least one parameter is required for update.' });
+            return res.status(401).json({ msg: 'At least one parameter is required for update.' });
         }
         const user = yield (0, Users_1.getUserById)(id);
         if (!user)

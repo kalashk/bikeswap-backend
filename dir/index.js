@@ -33,7 +33,10 @@ const StartServer = () => {
         next();
     });
     router.use((0, cookie_parser_1.default)());
-    router.use((0, cors_1.default)());
+    router.use((0, cors_1.default)({
+        origin: 'http://localhost:5173',
+        credentials: true
+    }));
     router.use((0, compression_1.default)());
     router.use(body_parser_1.default.json());
     /**Routes */

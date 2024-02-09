@@ -51,8 +51,6 @@ export const updateUser = async (req: Request, res: Response) => {
         const id = req.params.userId;
         const userData = req.body;
 
-        console.log(userData);
-
         if (Object.keys(userData).length === 0) {
             return res.status(401).json({ msg: 'At least one parameter is required for update.' });
         }
